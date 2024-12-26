@@ -47,7 +47,7 @@ enum layers {
 #define CTL_SPC LCTL_T(KC_SPC)
 
 // Activate layer MAC1 + Ctrl modifier
-#define MAC1_CTL LT(MAC1, MOD_LCTL)
+#define MAC1_CTL LM(MAC1, MOD_LCTL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_90(
@@ -62,21 +62,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      MC_4,     KC_LSFT,              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
         MC_4,     KC_LSFT,              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
 //      MC_5,     KC_LCTL,    KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                         KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
-        MC_5,     KC_LCTL,    KC_LOPTN,           KC_LCMMD, CTL_SPC,  MO(MAC3),                     KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
+        MC_5,     KC_LCTL,    KC_LOPTN,           KC_LCMMD, KC_SPC,   MO(MAC3),                     KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_ansi_90(
 //      ROT_BUT,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
-        RGB_TOG,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11, KC_F12,     _______,            _______,
-//      MC_1,     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,      KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-//      MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,      KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
-        _______,  _______,  _______,  CM_LEFT,  CM_RGHT,  CS_F5,    CS_F10,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-//      MC_3,     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,      KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
-        _______,  _______,  _______,  _______,  KC_DEL,   _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,   KC_RGHT,   _______,  _______,            _______,            KC_END,
-//      MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
-        _______,  _______,            _______,  KC_TILD,  KC_GRV,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-//      MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                         KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
-        _______,  _______,  _______,            MAC1_CTL, _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
+        RGB_TOG,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,            _______,
+//      MC_1,     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,      KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
+        _______,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,     KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,            _______,
+//      MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,      KC_I,     KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
+        _______,  _______,  _______,  CM_LEFT,  CM_RGHT,  CS_F5,    CS_F10,   _______,  _______,   _______,  _______, _______,  _______,  _______,  _______,            _______,
+//      MC_3,     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,      KC_K,     KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
+        _______,  _______,  _______,  _______,  KC_DEL,   _______,  _______,  KC_LEFT,  KC_DOWN,   KC_UP,    KC_RGHT, _______,  _______,            _______,            KC_END,
+//      MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,      KC_N,     KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
+        _______,  _______,            _______,  KC_TILD,  KC_GRV,   _______,  _______,  _______,   _______,  _______, _______,  _______,  _______,  _______,  _______,
+//      MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                          KC_SPC,            KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
+        _______,  _______,  _______,            _______,  MAC1_CTL, _______,                       _______,           _______,  _______,            _______,  _______,  _______),
 
     [WIN_BASE] = LAYOUT_ansi_90(
         KC_MUTE,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
@@ -178,3 +178,43 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+#ifdef RGB_MATRIX_ENABLE
+
+#define COLOR_HSV_PURPLE      191, 255, 255
+#define COLOR_HSV_BLUE        170, 255, 255
+#define COLOR_HSV_GREEN       85, 255, 255
+#define COLOR_HSV_RED         0, 255, 255
+
+int rgb_current_layer = -1;
+bool rgb_default_mode_set = false;
+
+void my_set_default_rgb_mode(void){
+    rgb_default_mode_set = true;
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv(COLOR_HSV_PURPLE);
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if(!rgb_default_mode_set){
+        my_set_default_rgb_mode();
+    }
+    int current_default_layer = get_highest_layer(default_layer_state);
+    if(rgb_current_layer != current_default_layer){
+        my_set_default_rgb_mode();
+        rgb_current_layer = current_default_layer;
+        switch (rgb_current_layer) {
+            case MAC_BASE:
+                rgb_matrix_sethsv(COLOR_HSV_PURPLE);
+                break;
+            case WIN_BASE:
+                rgb_matrix_sethsv(COLOR_HSV_BLUE);
+                break;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
+#endif // RGB_MATRIX_ENABLE
