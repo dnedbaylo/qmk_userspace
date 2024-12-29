@@ -3,12 +3,16 @@
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
-#define TAPPING_FORCE_HOLD_PER_KEY
+#define PERMISSIVE_HOLD_PER_KEY
 
 // At the time of this, there are 41 effects! That may be a bit too many to cycle through - keeping what I believe is the best.
 #ifdef RGB_MATRIX_ENABLE
+
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+    #define RGB_MATRIX_DEFAULT_HUE 191
+    #define RGB_MATRIX_DEFAULT_SAT 255
+    #define RGB_MATRIX_DEFAULT_VAL 128
 
 // #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
 

@@ -1,7 +1,6 @@
 {
-    "userspace_version": "1.0",
+    "userspace_version": "1.1",
     "build_targets": [
-        ["gmmk/pro/rev1/ansi", "dnedbaylo"],
-        ["keychron/k15_max/ansi_encoder/rgb", "dnedbaylo"]
+        ["gmmk/pro/rev1/ansi", "dnedbaylo"]
     ]
 }
