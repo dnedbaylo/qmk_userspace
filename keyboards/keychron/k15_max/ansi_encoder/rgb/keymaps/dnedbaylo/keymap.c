@@ -41,6 +41,8 @@ enum layers {
 #define CS_F10  LCTL(LSFT(KC_F10))
 // CTRL+SHIFT+F5
 #define CS_F5   LCTL(LSFT(KC_F5))
+// Shift + CMD + Backslack - for Slack reaction
+#define SLREACT LGUI(LSFT(KC_BSLS))
 
 // MOD-TAP:
 // https://docs.qmk.fm/mod_tap
@@ -50,34 +52,52 @@ enum layers {
 // Activate layer MAC1 + Ctrl modifier
 #define MAC1_CTL LM(MAC1, MOD_LCTL)
 
+// Activate layer MAC_FN
+#define L_MAC_FN MO(MAC_FN)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_90(
 //      ROT_BUT,  KC_ESC,     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,   KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
         KC_MUTE,  KC_ESC,     KC_F1,    KC_F2,    KC_MCTRL, KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_MPLY, KC_MNXT,  KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
 //      MC_1,     KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
-        MC_1,     KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
+        L_MAC_FN, KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
 //      MC_2,     KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
         MC_2,     KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
 //      MC_3,     KC_CAPS,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
-        MC_3,     MO(MAC_FN), KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
+        MC_3,     KC_CAPS,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
 //      MC_4,     KC_LSFT,              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
         MC_4,     KC_LSFT,              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
 //      MC_5,     KC_LCTL,    KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                         KC_SPC,            KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
         MC_5,     KC_LCTL,    KC_LOPTN,           KC_LCMMD, CTL_SPC,  MO(MAC3),                     KC_SPC,            KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN] = LAYOUT_ansi_90(
+//      ROT_BUT,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,   KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
+        RGB_TOG,  _______,  KC_BRID,  KC_BRIU,  KC_F3,    KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_F8,   KC_F9,     KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
+//      MC_1,     KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,    KC_9,      KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+//      MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,    KC_O,      KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+//      MC_3,     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,    KC_L,      KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
+//      MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
+        _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+//      MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                         KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
+        _______,  _______,  _______,            _______,  _______,  _______,                      _______,            _______,  _______,            _______,  _______,  _______),
+
+
+//    [MAC_FN] = LAYOUT_ansi_90(
 //      ROT_BUT,  KC_ESC,     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
-        RGB_TOG,  _______,    KC_BRID,  KC_BRIU,  KC_F3,    KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_F8,    KC_F9,   KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
+//        RGB_TOG,  _______,    KC_BRID,  KC_BRIU,  KC_F3,    KC_LNPAD, RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_F8,    KC_F9,   KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
 //      MC_1,     KC_GRV,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_PGUP,
-        _______,  _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,            _______,
+//        _______,  _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,            _______,
 //      MC_2,     KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
-        _______,  _______,    _______,  CM_LEFT,  CM_RGHT,  CS_F5,    CS_F10,   _______,  _______,  _______,  _______, _______,  _______,  _______,  _______,            _______,
+//        _______,  _______,    _______,  CM_LEFT,  CM_RGHT,  CS_F5,    CS_F10,   _______,  _______,  CHG_INP,  _______, _______,  _______,  _______,  SLREACT,            _______,
 //      MC_3,     KC_CAPS,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
-        _______,  _______,    _______,  _______,  KC_DEL,   _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT, _______,  _______,            _______,            KC_END,
+//        _______,  _______,    _______,  _______,  KC_DEL,   _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT, _______,  _______,            _______,            KC_END,
 //      MC_4,     KC_LSFT,              KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,     KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
-        _______,  _______,              _______,  KC_TILD,  KC_GRV,   _______,  _______,  _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,
+//        _______,  _______,              _______,  KC_TILD,  KC_GRV,   _______,  _______,  _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,
 //      MC_5,     KC_LCTL,    KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                         KC_SPC,            KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
-        _______,  _______,    _______,            _______,  MAC1_CTL, _______,                      _______,           _______,  _______,            _______,  _______,  _______),
+//        _______,  _______,    _______,            _______,  MAC1_CTL, _______,                      _______,           _______,  _______,            _______,  _______,  _______),
 
     [W_B] = LAYOUT_ansi_90(
 //      ROT_BUT,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,             KC_DEL,
@@ -101,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      MC_2,     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,            KC_PGDN,
         _______,  _______,  _______,  KC_HOME,  KC_END,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
 //      MC_3,     KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,             KC_HOME,
-        _______,  _______,  _______,  _______,  KC_DEL,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            KC_END,
+        _______,  _______,  _______,  _______,  KC_DEL,   _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,            _______,            KC_END,
 //      MC_4,     KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,
         _______,  _______,            _______,  KC_TILD,  KC_GRV,   _______,  _______,  _______,  NK_TOGG,  _______,  _______,  _______,  _______,  _______,  _______,
 //      MC_5,     KC_LCTL,  KC_LOPTN,           KC_LCMMD, KC_SPC,   FUNC,                         KC_SPC,             KC_RCMMD, KC_RCTL,            KC_LEFT,  KC_DOWN,  KC_RGHT),
