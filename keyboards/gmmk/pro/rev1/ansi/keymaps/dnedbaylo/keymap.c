@@ -35,34 +35,40 @@ enum custom_user_layers {
 
 enum custom_keycodes {
     MIDI_Q = SAFE_RANGE,
-    MIDI_W,
-    MIDI_E,
-    MIDI_R,
-    MIDI_T,
-    MIDI_Y,
-    MIDI_U,
-    MIDI_I,
-    MIDI_O,
-    MIDI_P,
     MIDI_A,
-    MIDI_S,
-    MIDI_D,
-    MIDI_F,
-    MIDI_G,
-    MIDI_H,
-    MIDI_J,
-    MIDI_K,
-    MIDI_L,
     MIDI_Z,
+    MIDI_W,
+    MIDI_S,
     MIDI_X,
+    MIDI_E,
+    MIDI_D,
     MIDI_C,
+    MIDI_R,
+    MIDI_F,
     MIDI_V,
+    MIDI_T,
+    MIDI_G,
     MIDI_B,
+    MIDI_Y,
+    MIDI_H,
     MIDI_N,
+    MIDI_U,
+    MIDI_J,
     MIDI_M,
+    MIDI_I,
+    MIDI_K,
+    MIDI_O,
+    MIDI_L,
+    MIDI_P,
     MIDI_GRV,
-    MIDI_LAY,
+    MIDI_PREV,
+    MIDI_NEXT,
+    MIDI_LEFT,
+    MIDI_RGHT,
+    MIDI_HOME,
 };
+
+#define MIDI_LAST_KEY MIDI_P
 
 //
 // COMMAND+RIGHT - for Mac "End"
@@ -297,18 +303,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Function 1 layout
     [_MD1] = LAYOUT(
-//      ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10       F11       F12       Ins               Rotary
-        KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_INS,           MIDI_GRV,
-//      `~        1        2        3        4        5        6        7        8        9        0         -         =         Backspace         Home
-        MIDI_GRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_HOME,
-//      Tab       Q        W        E        R        T        Y        U        I        O        P         [         ]         \                 PgUp
-        KC_TAB,   MIDI_Q,  MIDI_W,  MIDI_E,  MIDI_R,  MIDI_T,  MIDI_Y,  MIDI_U,  MIDI_I,  MIDI_O,  MIDI_P,   KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_PGUP,
-//      Caps      A        S        D        F        G        H        J        K        L        ;         '                   Enter             PgDown
-        KC_CAPS,  MIDI_A,  MIDI_S,  MIDI_D,  MIDI_F,  MIDI_G,  MIDI_H,  MIDI_J,  MIDI_K,  MIDI_L,  KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGDN,
-//      LShift             Z        X        C        V        B        N        M        ,        .         /                   RShift   Up       End
-        KC_LSFT,           MIDI_Z,  MIDI_X,  MIDI_C,  MIDI_V,  MIDI_B,  MIDI_N,  MIDI_M,  KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,   KC_END,
-//      LCtrl     LWin     LAlt                                Space                               RAlt      Fn2       Fn3       Left     Down     Right
-        KC_LCTL,  KC_LOPT, KC_LCMD,                            KC_SPACE,                           KC_ROPT,  DF(_MD),  KC_NO,    KC_LEFT, KC_DOWN, KC_RGHT
+//      ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10       F11         F12         Ins                   Rotary
+        KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   LAG(KC_F),   LSG(KC_F),     KC_F,     KC_INS,               MIDI_GRV,
+//      `~        1        2        3        4        5        6        7        8        9        0         -           =           Backspace             Home
+        MIDI_GRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,    KC_EQL,     MIDI_GRV,             MIDI_HOME,
+//      Tab       Q        W        E        R        T        Y        U        I        O        P         [           ]           \                     PgUp
+        KC_TAB,   MIDI_Q,  MIDI_W,  MIDI_E,  MIDI_R,  MIDI_T,  MIDI_Y,  MIDI_U,  MIDI_I,  MIDI_O,  MIDI_P,   LCMD(KC_Z), SCMD(KC_Z), KC_BSLS,              KC_PGUP,
+//      Caps      A        S        D        F        G        H        J        K        L        ;         '                       Enter                 PgDown
+        KC_CAPS,  MIDI_A,  MIDI_S,  MIDI_D,  MIDI_F,  MIDI_G,  MIDI_H,  MIDI_J,  MIDI_K,  MIDI_L,  KC_SCLN,  KC_QUOT,                KC_ENT,               KC_PGDN,
+//      LShift             Z        X        C        V        B        N        M        ,        .         /                       RShift     Up         End
+        KC_LSFT,           MIDI_Z,  MIDI_X,  MIDI_C,  MIDI_V,  MIDI_B,  MIDI_N,  MIDI_M,  KC_COMM, KC_DOT,   KC_SLSH,                KC_RSFT,   MIDI_PREV, KC_END,
+//      LCtrl     LWin     LAlt                                Space                               RAlt      Fn2         Fn3         Left       Down       Right
+        KC_LCTL,  KC_LOPT, KC_LCMD,                            KC_SPACE,                           KC_ROPT,  DF(_MD),    KC_NO,      MIDI_LEFT, MIDI_NEXT, MIDI_RGHT
     ),
 };
 
@@ -350,11 +356,37 @@ static uint8_t current_encoder_value = MIDI_DEFAULT_ENCODER_VALUE;
 #define COLOR_RGB_RED         127, 0, 0
 #define COLOR_HSV_MAC         170, 255, 115
 #define COLOR_HSV_MACMIDI     146, 250, 196
-#define COLOR_HSV_WHITE       0, 0, 255
+#define COLOR_HSV_WHITE       0, 0, 170
 
 #define LED_INDEX_FN2 55
 
 int rgb_current_layer = -1;
+
+int midi_CC_number_to_rgb_led[] = {
+//  Q   A   Z
+    8,  9,  10,
+//  W   S   X
+    14, 15, 16,
+//  E   D   C
+    20, 21, 22,
+//  R   F   V
+    25, 26, 27,
+//  T   G   B
+    30, 31, 32,
+//  Y   H   N
+    36, 37, 38,
+//  U   J   M
+    41, 42, 43,
+//  I   K
+    46, 47,
+//  O   L
+    52, 53,
+//  P
+    58
+};
+
+int midi_CC_number_to_rgb_led_size = sizeof(midi_CC_number_to_rgb_led) / sizeof(midi_CC_number_to_rgb_led[0]);
+
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     int current_default_layer = get_highest_layer(default_layer_state);
@@ -388,6 +420,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (LED_INDEX_FN2 >= led_min && LED_INDEX_FN2 < led_max) {
             rgb_matrix_set_color(LED_INDEX_FN2, COLOR_RGB_RED);
         }
+        if(current_MIDI_ccNumber > 0 && (current_MIDI_ccNumber - 1) <= (midi_CC_number_to_rgb_led_size - 1)){
+            int led_index = midi_CC_number_to_rgb_led[current_MIDI_ccNumber - 1];
+            rgb_matrix_set_color(led_index, COLOR_RGB_RED);
+        }
     }
 
     return false;
@@ -398,21 +434,67 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #define MIDI_CHANNEL_1 0
 #define MIDI_CHANNEL_2 1
 
+void _encoder_midi_clockwise(void) {
+    if(current_encoder_value == 63){
+        midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 64);
+    }
+    midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 65);
+    current_encoder_value = 65;
+}
+
+void _encoder_midi_counterclockwise(void) {
+    if(current_encoder_value == 65){
+        midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 64);
+    }
+    midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 63);
+    current_encoder_value = 63;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     int current_default_layer = get_highest_layer(default_layer_state);
     if(current_default_layer == _MD1){
-        if(keycode >= MIDI_Q && keycode <= MIDI_M){
-            if (record->event.pressed) {
+        if(keycode >= MIDI_Q && keycode <= MIDI_LAST_KEY){
+            if (!record->event.pressed) {
                 current_MIDI_ccNumber = 1 + keycode - MIDI_Q;
-            }
-            else {
-                midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 127);
+                midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 64);
             }
             return false;
         }
         if(keycode == MIDI_GRV && current_MIDI_ccNumber){
             if (!record->event.pressed) {
                 midi_send_cc(&midi_device, MIDI_CHANNEL_2, current_MIDI_ccNumber, 127);
+            }
+            return false;
+        }
+        if(keycode == MIDI_PREV && current_MIDI_ccNumber > 1){
+            if (!record->event.pressed) {
+                current_MIDI_ccNumber -= 1;
+                midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 64);
+            }
+            return false;
+        }
+        if(keycode == MIDI_NEXT && current_MIDI_ccNumber && current_MIDI_ccNumber < (1 + MIDI_LAST_KEY - MIDI_Q)){
+            if (!record->event.pressed) {
+                current_MIDI_ccNumber += 1;
+                midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 64);
+            }
+            return false;
+        }
+        if(keycode == MIDI_LEFT && current_MIDI_ccNumber){
+            if (!record->event.pressed) {
+                _encoder_midi_counterclockwise();
+            }
+            return false;
+        }
+        if(keycode == MIDI_RGHT && current_MIDI_ccNumber){
+            if (!record->event.pressed) {
+                _encoder_midi_clockwise();
+            }
+            return false;
+        }
+        if(keycode == MIDI_HOME){
+            if (!record->event.pressed) {
+                midi_send_cc(&midi_device, MIDI_CHANNEL_1, 50, 64);
             }
             return false;
         }
@@ -424,18 +506,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     int current_default_layer = get_highest_layer(default_layer_state);
     if(current_default_layer == _MD1 && current_MIDI_ccNumber) {
         if(clockwise){
-            current_encoder_value += 1;
-            if(current_encoder_value > 65){
-                current_encoder_value = 65;
-            }
-            midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, current_encoder_value);
+            _encoder_midi_clockwise();
         }
         else {
-            current_encoder_value -= 1;
-            if(current_encoder_value < 63){
-                current_encoder_value = 63;
-            }
-            midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, current_encoder_value);
+            _encoder_midi_counterclockwise();
         }
     }
     else if (current_default_layer != _MD1) {
