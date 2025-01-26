@@ -29,14 +29,41 @@ enum custom_user_layers {
     _WR,   // Witcher
     _WR_FN1,
     _MB,  // Mac base
-    _MF1,  // Mac FN 1
-    _MF2,  // Mac FN 2
-    _MF3,  // Mac FN 2
+    _MD,  // Mac Midi
+    _MD1,  // Mac FN 2
 };
 
 enum custom_keycodes {
-    SLKPONE = SAFE_RANGE,   // Slack: :+1:<Enter>
+    MIDI_Q = SAFE_RANGE,
+    MIDI_W,
+    MIDI_E,
+    MIDI_R,
+    MIDI_T,
+    MIDI_Y,
+    MIDI_U,
+    MIDI_I,
+    MIDI_O,
+    MIDI_P,
+    MIDI_A,
+    MIDI_S,
+    MIDI_D,
+    MIDI_F,
+    MIDI_G,
+    MIDI_H,
+    MIDI_J,
+    MIDI_K,
+    MIDI_L,
+    MIDI_Z,
+    MIDI_X,
+    MIDI_C,
+    MIDI_V,
+    MIDI_B,
+    MIDI_N,
+    MIDI_M,
+    MIDI_GRV,
+    MIDI_LAY,
 };
+
 //
 // COMMAND+RIGHT - for Mac "End"
 #define CM_RGHT LCMD(KC_RGHT)
@@ -52,6 +79,8 @@ enum custom_keycodes {
 // https://docs.qmk.fm/mod_tap
 // CTRL when hold, SPACE when tap
 #define CTL_SPC LCTL_T(KC_SPC)
+
+extern MidiDevice midi_device;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // The FN key by default maps to a momentary toggle to layer 1 to provide access to the QK_BOOT key (to put the board into bootloader mode). Without
@@ -129,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      `~        1        2        3        4         5        6        7        8        9         0        -        =         Backspace         Home
         _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______, _______,  _______,          _______,
 //      Tab       Q        W        E        R         T        Y        U        I        O         P        [        ]         \                 PgUp
-        _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  SLKPONE, _______, _______,  QK_BOOT,          _______,
+        _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______, _______,  QK_BOOT,          _______,
 //      Fn1       A        S        D        F         G        H        J        K        L         ;        '                  Enter             PgDown
         _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______,           _______,          _______,
 //      LShift             Z        X        C         V        B        N        M        ,         .        /                  RShift   Up       End
@@ -243,73 +272,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      Tab       Q        W        E        R        T        Y        U        I        O        P         [         ]         \                 PgUp
         KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_PGUP,
 //      Fn1       A        S        D        F        G        H        J        K        L        ;         '                   Enter             PgDown
-        MO(_MF1), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGDN,
+        KC_CAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGDN,
 //      LShift             Z        X        C        V        B        N        M        ,        .         /                   RShift   Up       End
         KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,   KC_END,
 //      LCtrl     LWin     LAlt                                Space                               RAlt      Fn2       Fn3       Left     Down     Right
-        KC_LCTL,  KC_LOPT, KC_LCMD,                            CTL_SPC,                            KC_ROPT,  MO(_MF2), MO(_MF3), KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL,  KC_LOPT, KC_LCMD,                            CTL_SPC,                            KC_ROPT,  DF(_MD),  DF(_BASE), KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
+    // Mac Midi Base layout
+    [_MD] = LAYOUT(
+//      ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10       F11       F12       Ins               Rotary
+        KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_INS,           KC_MUTE,
+//      `~        1        2        3        4        5        6        7        8        9        0         -         =         Backspace         Home
+        KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_HOME,
+//      Tab       Q        W        E        R        T        Y        U        I        O        P         [         ]         \                 PgUp
+        KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_PGUP,
+//      Fn1       A        S        D        F        G        H        J        K        L        ;         '                   Enter             PgDown
+        KC_CAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGDN,
+//      LShift             Z        X        C        V        B        N        M        ,        .         /                   RShift   Up       End
+        KC_LSFT,           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,   KC_END,
+//      LCtrl     LWin     LAlt                                Space                               RAlt      Fn2       Fn3       Left     Down     Right
+        KC_LCTL,  KC_LOPT, KC_LCMD,                            CTL_SPC,                            KC_ROPT,  DF(_MD1), DF(_MB),  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     // Function 1 layout
-    [_MF1] = LAYOUT(
-//      ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10       F11      F12        Ins               Rotary
-        _______,  KC_BRID, KC_BRIU, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,   _______,          _______,
-//      `~        1        2        3        4        5        6        7        8        9        0         -        =          Backspace         Home
-        KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,    KC_DEL,           _______,
-//      Tab       Q        W        E        R        T        Y        U        I        O        P         [        ]          \                 PgUp
-        _______,  _______, CM_RGHT, CM_LEFT, CS_F5,   CS_F10,  _______, _______, _______, _______, KC_MPLY,  _______, _______,   QK_BOOT,          _______,
-//      Fn1       A        S        D        F        G        H        J        K        L        ;         '                   Enter             PgDown
-        _______,  _______, _______, KC_DEL,  _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,  _______,            _______,          _______,
+    [_MD1] = LAYOUT(
+//      ESC       F1       F2       F3       F4       F5       F6       F7       F8       F9       F10       F11       F12       Ins               Rotary
+        KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_INS,           MIDI_GRV,
+//      `~        1        2        3        4        5        6        7        8        9        0         -         =         Backspace         Home
+        MIDI_GRV, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_HOME,
+//      Tab       Q        W        E        R        T        Y        U        I        O        P         [         ]         \                 PgUp
+        KC_TAB,   MIDI_Q,  MIDI_W,  MIDI_E,  MIDI_R,  MIDI_T,  MIDI_Y,  MIDI_U,  MIDI_I,  MIDI_O,  MIDI_P,   KC_LBRC,  KC_RBRC,  KC_BSLS,          KC_PGUP,
+//      Caps      A        S        D        F        G        H        J        K        L        ;         '                   Enter             PgDown
+        KC_CAPS,  MIDI_A,  MIDI_S,  MIDI_D,  MIDI_F,  MIDI_G,  MIDI_H,  MIDI_J,  MIDI_K,  MIDI_L,  KC_SCLN,  KC_QUOT,            KC_ENT,           KC_PGDN,
 //      LShift             Z        X        C        V        B        N        M        ,        .         /                   RShift   Up       End
-        _______,           _______, KC_TILD, KC_GRV,  _______, _______, KC_MNXT, _______, _______, _______,  _______,            _______, _______, _______,
-//      LCtrl     LWin     LAlt                                Space                               RAlt      Fn2      Fn3        Left     Down     Right
-        _______,  _______, _______,                            KC_SPC,                             _______,  _______, _______,   _______, _______, _______
+        KC_LSFT,           MIDI_Z,  MIDI_X,  MIDI_C,  MIDI_V,  MIDI_B,  MIDI_N,  MIDI_M,  KC_COMM, KC_DOT,   KC_SLSH,            KC_RSFT, KC_UP,   KC_END,
+//      LCtrl     LWin     LAlt                                Space                               RAlt      Fn2       Fn3       Left     Down     Right
+        KC_LCTL,  KC_LOPT, KC_LCMD,                            KC_SPACE,                           KC_ROPT,  DF(_MD),  KC_NO,    KC_LEFT, KC_DOWN, KC_RGHT
     ),
-
-    // Function 2 layout
-    [_MF2] = LAYOUT(
-//      ESC       F1       F2       F3       F4       F5         F6       F7       F8       F9       F10      F11      F12         Ins               Rotary
-        _______,  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______,    _______,          _______,
-//      `~        1        2        3        4        5          6        7        8        9        0        -        =           Backspace         Home
-        _______,  _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______,    _______,          _______,
-//      Tab       Q        W        E        R        T          Y        U        I        O        P        [        ]           \                 PgUp
-        _______,  _______, CM_RGHT, CM_LEFT, _______, _______,   _______, _______, _______, _______, KC_MPLY, _______, _______,    QK_BOOT,          _______,
-//      Fn1       A        S        D        F        G          H        J        K        L        ;        '                    Enter             PgDown
-        _______,  _______, _______, KC_DEL,  _______, DF(_BASE), _______, _______, _______, _______, _______, _______,             _______,          _______,
-//      LShift             Z        X        C        V          B        N        M        ,        .        /                    RShift   Up       End
-        _______,           _______, _______, _______, _______,   _______, KC_MNXT, _______, _______, _______, _______,             _______, _______, _______,
-//      LCtrl     LWin     LAlt                                  Space                               RAlt     FN2      Fn3         Left     Down     Right
-        _______,  _______, _______,                              KC_SPC,                             _______, _______, _______,    _______, _______, _______
-    ),
-
-    // Mac Function 3 layout
-    [_MF3] = LAYOUT(
-//      ESC       F1       F2       F3       F4        F5       F6       F7       F8       F9        F10      F11      F12       Ins               Rotary
-        RGB_TOG,  RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, RGB_MOD,  _______, _______, _______,  _______,          _______,
-//      `~        1        2        3        4         5        6        7        8        9         0        -        =         Backspace         Home
-        _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______, _______,  _______,          _______,
-//      Tab       Q        W        E        R         T        Y        U        I        O         P        [        ]         \                 PgUp
-        _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  SLKPONE, _______, _______,  QK_BOOT,          _______,
-//      Fn1       A        S        D        F         G        H        J        K        L         ;        '                  Enter             PgDown
-        _______,  _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______,           _______,          _______,
-//      LShift             Z        X        C         V        B        N        M        ,         .        /                  RShift   Up       End
-        _______,           _______, _______, _______,  _______, _______, _______, _______, _______,  _______, _______,           _______, _______, _______,
-//      LCtrl     LWin     LAlt                                 Space                                Fn2      RAlt     Fn3       Left     Down     Right
-        _______,  _______, _______,                             _______,                             _______, _______, _______,  _______, _______, _______
-    ),
-
-
 };
 
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-    return true;
-}
+
 
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -332,17 +336,25 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+#define MIDI_DEFAULT_ENCODER_VALUE 64
+
+static uint8_t current_MIDI_ccNumber = 0;
+static uint8_t current_encoder_value = MIDI_DEFAULT_ENCODER_VALUE;
 
 #ifdef RGB_MATRIX_ENABLE
-
-int rgb_current_layer = -1;
 
 #define COLOR_HSV_PURPLE      191, 255, 128
 #define COLOR_HSV_BLUE        170, 255, 128
 #define COLOR_HSV_GREEN       85, 255, 128
 #define COLOR_HSV_RED         0, 255, 128
+#define COLOR_RGB_RED         127, 0, 0
 #define COLOR_HSV_MAC         170, 255, 115
+#define COLOR_HSV_MACMIDI     146, 250, 196
+#define COLOR_HSV_WHITE       0, 0, 255
 
+#define LED_INDEX_FN2 55
+
+int rgb_current_layer = -1;
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     int current_default_layer = get_highest_layer(default_layer_state);
@@ -364,21 +376,80 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case _MB:
                 rgb_matrix_sethsv(COLOR_HSV_MAC);
                 break;
+            case _MD:
+                rgb_matrix_sethsv(COLOR_HSV_MACMIDI);
+                break;
+            case _MD1:
+                rgb_matrix_sethsv(COLOR_HSV_WHITE);
+                break;
         }
     }
+    if(current_default_layer == _MD1){
+        if (LED_INDEX_FN2 >= led_min && LED_INDEX_FN2 < led_max) {
+            rgb_matrix_set_color(LED_INDEX_FN2, COLOR_RGB_RED);
+        }
+    }
+
     return false;
 }
 
 #endif // RGB_MATRIX_ENABLE
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case SLKPONE:
-        if (record->event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LSFT)"\\"SS_UP(X_LSFT)SS_UP(X_LCTL)":+1:"SS_DELAY(250)SS_TAP(X_ENT));
-        }
-        break;
-    }
+#define MIDI_CHANNEL_1 0
+#define MIDI_CHANNEL_2 1
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    int current_default_layer = get_highest_layer(default_layer_state);
+    if(current_default_layer == _MD1){
+        if(keycode >= MIDI_Q && keycode <= MIDI_M){
+            if (record->event.pressed) {
+                current_MIDI_ccNumber = 1 + keycode - MIDI_Q;
+            }
+            else {
+                midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, 127);
+            }
+            return false;
+        }
+        if(keycode == MIDI_GRV && current_MIDI_ccNumber){
+            if (!record->event.pressed) {
+                midi_send_cc(&midi_device, MIDI_CHANNEL_2, current_MIDI_ccNumber, 127);
+            }
+            return false;
+        }
+    }
     return true;
-};
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    int current_default_layer = get_highest_layer(default_layer_state);
+    if(current_default_layer == _MD1 && current_MIDI_ccNumber) {
+        if(clockwise){
+            current_encoder_value += 1;
+            if(current_encoder_value > 65){
+                current_encoder_value = 65;
+            }
+            midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, current_encoder_value);
+        }
+        else {
+            current_encoder_value -= 1;
+            if(current_encoder_value < 63){
+                current_encoder_value = 63;
+            }
+            midi_send_cc(&midi_device, MIDI_CHANNEL_1, current_MIDI_ccNumber, current_encoder_value);
+        }
+    }
+    else if (current_default_layer != _MD1) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+    return false;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    current_MIDI_ccNumber = 0;
+    current_encoder_value = MIDI_DEFAULT_ENCODER_VALUE;
+    return state;
+}
