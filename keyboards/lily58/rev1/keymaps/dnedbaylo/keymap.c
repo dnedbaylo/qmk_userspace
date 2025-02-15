@@ -1,4 +1,3 @@
-#include "keycodes.h"
 #include QMK_KEYBOARD_H
 
 enum layer_number {
@@ -79,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+----z---+----x---+----c---+----v---+----b---|   [    |   |   ]    |----n---+----m---+----,<--+----.>--+---/?---+--------|
   * | LShift |    Z   |    X   |    C   |    V   |    B   |--------|   |--------|    N   |    M   |    ,   |    .   |   /    | RShift |
   * `----------------------------------------------------/        /     \        \----------------------------------------------------'
-  *                        |  LCtl  |  LOpt  |  LCmd  | /  Space /       \ Space  \ | Layer1 | Layer2 | Layer3 |
+  *                        |  LCtl  |  LOpt  |  LCmd  | /  Space /       \ Space  \ | Layer1 | Layer2 |  ROpt  |
   *                        `--------------------------''--------'         '--------''--------------------------'
  */
 
@@ -95,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--esc--------1--------2--------3--------4--------5---.                     ,----6--------7--------8--------9-------0-------back--.
  * |  ESC   |   F1   |   F2   |   F3   |   F4   |   F5   |                     |   F6   |   F7   |   F8   |   F9   |  F10   |  Del   |
  * |--tab---+----q---+----w---+----e---+----r---+----t---|                     |----y---+----u---+----i---+----o---+---p----+---ent--|
- * |  TAB   |        |CMD_LEFT|CMD_RGHT|        |        |                     |        |        |    |   |        | PageUp |  Home  |
+ * |  TAB   |        |CMD_LEFT|CMD_RGHT|        |        |                     |    =   |    _   |    |   |    \   | PageUp |  Home  |
  * |--caps--+----a---+----s---+----d---+----f---+----g---|                     |----h---+----j---+----k---+----l---+---;:---+---'"---|
- * |  CAPS  |        |        |   DEL  |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right |   -    |  End   |
- * |--shft--+----z---+----x---+----c---+----v---+----b---|   _    |   |   =    |----n---+----m---+----,<--+----.>--+---/?---+--shft--|
- * | LShift |        |        |        |        |OPT_LEFT|--------|   |--------| PageDn |  Left  |  Down  |  Right |   +    | RShift |
+ * |  CAPS  |        |        |   DEL  |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right |   +    |  End   |
+ * |--shft--+----z---+----x---+----c---+----v---+----b---|   {    |   |   }    |----n---+----m---+----,<--+----.>--+---/?---+--shft--|
+ * | LShift |        |        |        |        |OPT_LEFT|--------|   |--------| PageDn |  Left  |  Down  |  Right |   -    | RShift |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |  LCtl  |  LOpt  |  LCmd  | /  Space /       \ Space  \ |        |        |        |
  *                        `--------------------------''--------'         '--------''--------------------------'                        */
@@ -114,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
 /* |--------+---a----+---s----+---d----+---f----+---g----|                     |---h----+---j----+---k----+---l----+---;:---+---'"---|
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
-    _______, _______, _______, KC_DEL,  OPT_RGHT,_______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MINS, KC_END,
+    _______, _______, _______, KC_DEL,  OPT_RGHT,_______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PLUS, KC_END,
 /* |        |        |        |        |        |        |--------.   ,--------|        |        |        |        |        |        |
  * |--------+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--------| */
-    _______, _______, _______, _______, _______, OPT_LEFT,KC_LCBR,     KC_RCBR, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PLUS, _______,
+    _______, _______, _______, _______, _______, OPT_LEFT,KC_LCBR,     KC_RCBR, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_MINS, _______,
 /* |        |        |        |        |        |        |--------|   |--------|        |        |        |        |        |        |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |        |        |        | /        /       \        \ |        |        |        |                        */
@@ -127,53 +126,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+/*layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+  }*/
 
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_keyboard_master())
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  return rotation;
+    return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
 }
 
 // When you add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
-const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
+const char *read_mode_icon(bool swap);
 
-// const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
+char layer_state_str[24];
+
+const char *_read_layer_state(void) {
+  switch (layer_state)
+  {
+  case _BASE:
+    snprintf(layer_state_str, sizeof(layer_state_str), "L: B");
+    break;
+  case _LAYER1:
+    snprintf(layer_state_str, sizeof(layer_state_str), "L: 1");
+    break;
+  case _LAYER2:
+    snprintf(layer_state_str, sizeof(layer_state_str), "L: 2");
+    break;
+  default:
+    snprintf(layer_state_str, sizeof(layer_state_str), "L: ?");
+  }
+
+  return layer_state_str;
+}
+
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
-    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
-  } else {
-    oled_write(read_logo(), false);
+    oled_write_ln(_read_layer_state(), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+    oled_write_ln_P(PSTR(""), false);
   }
-    return false;
+  return false;
 }
 #endif // OLED_ENABLE
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-#ifdef OLED_ENABLE
-    set_keylog(keycode, record);
-#endif
-    // set_timelog();
-  }
-  return true;
-}
