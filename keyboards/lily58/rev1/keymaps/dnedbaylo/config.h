@@ -24,6 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 200
 #define ONESHOT_TAP_TOGGLE 3
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
 
 #undef RGBLIGHT_LED_COUNT
 #define RGBLIGHT_EFFECT_BREATHING
