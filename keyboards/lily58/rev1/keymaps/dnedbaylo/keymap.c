@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_HOME,
      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
      KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-     OSM_LST, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   TD_LSBCB,     TD_RSBCB,KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSM_RST,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   TD_LSBCB,     TD_RSBCB,KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                             KC_LOPT, KC_LGUI, LAY1,      KC_SPC,          KC_ENT,    LT1_BSP, LAY2,    NAV
 ),
 
@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--tab---+----q---+----w---+----e---+----r---+----t---|                     |----y---+----u---+----i---+----o---+---p----+---\|---|
  * |  TAB   |        |CMD_LEFT|CMD_RGHT|    $   |    %   |                     |    =   |    _   |    *   |        | PageUp |        |
  * |--caps--+----a---+----s---+----d---+----f---+----g---|                     |----h---+----j---+----k---+----l---+---;:---+---'"---|
- * |  CAPS  |        |        | TP DEL |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right |   +    |        |
+ * |  CAPS  |        |OSM_LST | TP DEL |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right |   -    |        |
  * |--shft--+----z---+----x---+----c---+----v---+----b---|  Ctl   |   |  Bspc  |----n---+----m---+----,<--+----.>--+---/?---+--rsft--|
- * | LShift |        |    ~   |    `   |        |OPT_LEFT|--------|   |--------| PageDn |  Left  |  Down  |  Right |   -    | RShift |
+ * | LShift |        |    ~   |    `   |        |OPT_LEFT|--------|   |--------| PageDn |  Left  |  Down  |  Right |   +    | RShift |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |  LCtl  |  LOpt  |  LCmd  | /        /       \        \ |        |        |        |
  *                        `--------------------------''--------'         '--------''--------------------------'                        */
@@ -105,10 +105,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
 /* |--caps--+---a----+---s----+---d----+---f----+---g----|                     |---h----+---j----+---k----+---l----+---;:---+---'"---|
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
-    _______, _______, _______, TH_DEL,  OPT_RGHT,_______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PLUS, _______,
+    _______, _______, OSM_LST, TH_DEL,  OPT_RGHT,_______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MINS, _______,
 /* |        |        |        |        |        |        |--------.   ,--------|        |        |        |        |        |        |
  * |--lsft--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--rsft--| */
-    _______, _______, KC_TILD, KC_GRV,  _______, OPT_LEFT,OSM_CTL,     OSM_RST, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_MINS, _______,
+    _______, _______, KC_TILD, KC_GRV,  _______, OPT_LEFT,OSM_CTL,     OSM_RST, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PLUS, _______,
 /* |        |        |        |        |        |        |--------|   |--------|        |        |        |        |        |        |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |        |        |        | /        /       \        \ |        |        |        |                        */
