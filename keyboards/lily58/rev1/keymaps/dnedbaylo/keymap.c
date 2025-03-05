@@ -36,6 +36,12 @@ enum layer_number {
 // Layer 1 or Backspace
 #define LT1_BSP LT(_LAYER1, KC_BSPC)
 
+// Home row mods
+#define HOME_A LCTL_T(KC_A)
+#define HOME_F LSFT_T(KC_F)
+#define HOME_J RSFT_T(KC_J)
+#define HOME_SC RCTL_T(KC_SCLN)
+
 // Tap/Hold keys
 #define TH_DEL LT(0, KC_DEL)
 
@@ -43,6 +49,7 @@ enum tap_dance_keycodes {
     _TD_LSBCB,  // tap dance: Left Square Bracket/Curly Bracket
     _TD_RSBCB,  // tap dance: Right Square Bracket/Curly Bracket
     _TD_PRNS,   // tap dance: Open parenthesis / Close parenthesis
+    _TD_DLZR,   // tap dance: Dollar or zero
 };
 
 tap_dance_action_t tap_dance_actions[] = {
@@ -50,12 +57,14 @@ tap_dance_action_t tap_dance_actions[] = {
     [_TD_LSBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_BRACKET, KC_LEFT_CURLY_BRACE),
     [_TD_RSBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT_BRACKET, KC_RIGHT_CURLY_BRACE),
     [_TD_PRNS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
+    [_TD_DLZR] = ACTION_TAP_DANCE_DOUBLE(KC_DLR, KC_0),
 };
 
 // Tap Dance keys
 #define TD_LSBCB TD(_TD_LSBCB)
 #define TD_RSBCB TD(_TD_RSBCB)
 #define TD_PRNS TD(_TD_PRNS)
+#define TD_DLZR TD(_TD_DLZR)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -77,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_BASE] = LAYOUT(
      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_HOME,
      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+     KC_CAPS, HOME_A,  KC_S,    KC_D,    HOME_F,  KC_G,                          KC_H,    HOME_J,  KC_K,    KC_L,    HOME_SC, KC_QUOT,
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   TD_LSBCB,     TD_RSBCB,KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                             KC_LOPT, KC_LGUI, LAY1,      KC_SPC,          KC_ENT,    LT1_BSP, LAY2,    NAV
 ),
@@ -89,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  TAB   |        |CMD_LEFT|CMD_RGHT|    $   |    %   |                     |    =   |    _   |    *   |        | PageUp |        |
  * |--caps--+----a---+----s---+----d---+----f---+----g---|                     |----h---+----j---+----k---+----l---+---;:---+---'"---|
  * |  CAPS  |        |OSM_LST | TP DEL |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right |   -    |        |
- * |--shft--+----z---+----x---+----c---+----v---+----b---|  Ctl   |   |  Bspc  |----n---+----m---+----,<--+----.>--+---/?---+--rsft--|
+ * |--shft--+----z---+----x---+----c---+----v---+----b---|  Ctl   |   | RShift |----n---+----m---+----,<--+----.>--+---/?---+--rsft--|
  * | LShift |        |    ~   |    `   |        |OPT_LEFT|--------|   |--------| PageDn |  Left  |  Down  |  Right |   +    | RShift |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |  LCtl  |  LOpt  |  LCmd  | /        /       \        \ |        |        |        |
@@ -101,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
 /* |--tab---+---q----+---w----+---e----+---r----+---t----|                     |---y----+---u----+---i----+---o----+---p----+---\|---|
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
-    _______, _______, CMD_LEFT,CMD_RGHT,KC_DLR,  KC_PERC,                       KC_EQL,  KC_UNDS, KC_ASTR, TD_PRNS, KC_PGUP, _______,
+    RAYCAST, _______, CMD_LEFT,CMD_RGHT,TD_DLZR, KC_PERC,                       KC_EQL,  KC_UNDS, KC_ASTR, TD_PRNS, KC_PGUP, _______,
 /* |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
 /* |--caps--+---a----+---s----+---d----+---f----+---g----|                     |---h----+---j----+---k----+---l----+---;:---+---'"---|
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
