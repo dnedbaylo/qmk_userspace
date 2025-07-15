@@ -13,7 +13,7 @@ enum layer_number {
 
 #define LAY1 MO(_LAYER1)
 #define LAY2 MO(_LAYER2)
-#define NAV TG(_NAV)
+#define NAV  MO(_NAV)
 
 // COMMAND+LEFT - for Mac "Home"
 #define CMD_LEFT LCMD(KC_LEFT)
@@ -25,22 +25,15 @@ enum layer_number {
 // OPT+RIGHT - word right
 #define OPT_RGHT LOPT(KC_RGHT)
 
-// sticky keys
-#define OSM_CTL OSM(MOD_LCTL)
-#define OSM_RST OSM(MOD_RSFT)
-#define OSM_LST OSM(MOD_LSFT)
-
 // raycast
 #define RAYCAST LOPT(KC_SPACE)
 
-// Layer 1 or Backspace
-#define LT1_BSP LT(_LAYER1, KC_BSPC)
+// Layer 2 or Backspace
+#define LT2_BSP LT(_LAYER2, KC_BSPC)
 
 // Home row mods
-#define HOME_A LCTL_T(KC_A)
 #define HOME_F LSFT_T(KC_F)
 #define HOME_J RSFT_T(KC_J)
-#define HOME_SC RCTL_T(KC_SCLN)
 
 // Tap/Hold keys
 #define TH_DEL LT(0, KC_DEL)
@@ -53,7 +46,6 @@ enum tap_dance_keycodes {
 };
 
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
     [_TD_LSBCB] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_BRACKET, KC_LEFT_CURLY_BRACE),
     [_TD_RSBCB] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT_BRACKET, KC_RIGHT_CURLY_BRACE),
     [_TD_PRNS] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
@@ -70,92 +62,91 @@ tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* Base layer
-  * ,-------------1--------2--------3--------4--------5---.                     ,----6--------7--------8--------9-------0-------home--.
-  * |  ESC   |    1   |    2   |    3   |    4   |    5   |                     |    6   |    7   |    8   |    9   |   0    |  Home  |
+  * ,-------------1--------2--------3--------4--------5---.                     ,----6--------7--------8--------9-------0-------eql---.
+  * |  ESC   |    1   |    2   |    3   |    4   |    5   |                     |    6   |    7   |    8   |    9   |   0    |   =    |
   * |--------+----q---+----w---+----e---+----r---+----t---|                     |----y---+----u---+----i---+----o---+---p----+---\|---|
   * |  TAB   |    Q   |    W   |    E   |    R   |    T   |                     |    Y   |    U   |    I   |    O   |   P    |   \|   |
   * |--------+----a---+----s---+----d---+----f---+----g---|                     |----h---+----j---+----k---+----l---+---;:---+---'"---|
   * |  CAPS  |    A   |    S   |    D   |    F   |    G   |--------.   ,--------|    H   |    J   |    K   |    L   |   ;    |   '    |
-  * |--------+----z---+----x---+----c---+----v---+----b---|   [    |   |   ]    |----n---+----m---+----,<--+----.>--+---/?---+--------|
-  * | LShift |    Z   |    X   |    C   |    V   |    B   |--------|   |--------|    N   |    M   |    ,   |    .   |   /    | RShift |
+  * |--------+----z---+----x---+----c---+----v---+----b---|   [    |   |   ]    |----n---+----m---+----,<--+----.>--+---/?---+--mins--|
+  * | LShift |    Z   |    X   |    C   |    V   |    B   |--------|   |--------|    N   |    M   |    ,   |    .   |   /    |   -    |
   * `----------------------------------------------------/        /     \        \----------------------------------------------------'
   *                        |  LOpt  |  LCmd  |  Lay1  | /  Space /       \ Enter  \ | Layer1 | Layer2 |  Nav   |
   *                        `--------------------------''--------'         '--------''--------------------------'
  */
 
  [_BASE] = LAYOUT(
-     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_HOME,
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-     KC_CAPS, HOME_A,  KC_S,    KC_D,    HOME_F,  KC_G,                          KC_H,    HOME_J,  KC_K,    KC_L,    HOME_SC, KC_QUOT,
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   TD_LSBCB,     TD_RSBCB,KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                            KC_LOPT, KC_LGUI, LAY1,      KC_SPC,          KC_ENT,    LT1_BSP, LAY2,    NAV
+     KC_CAPS, KC_A,    KC_S,    KC_D,    HOME_F,  KC_G,                          KC_H,    HOME_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   TD_LSBCB,     TD_RSBCB,KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
+                            KC_LOPT, KC_LGUI, LAY1,      KC_SPC,          KC_ENT,    LT2_BSP, LAY2,    NAV
 ),
 
 /* LAYER 1
- * ,--esc--------1--------2--------3--------4--------5---.                     ,----6--------7--------8--------9-------0-------home--.
- * |  F11   |   F1   |   F2   |   F3   |   F4   |   F5   |                     |   F6   |   F7   |   F8   |   F9   |  F10   |   F12  |
+ * ,--esc--------1--------2--------3--------4--------5---.                     ,----6--------7--------8--------9-------0--------eql--.
+ * |        |   F1   |   F2   |   F3   |   F4   |   F5   |                     |   F6   |   F7   |   F8   |   F9   |  F10   |   F11  |
  * |--tab---+----q---+----w---+----e---+----r---+----t---|                     |----y---+----u---+----i---+----o---+---p----+---\|---|
- * |  TAB   |        |CMD_LEFT|CMD_RGHT|    $   |    %   |                     |    =   |    _   |    *   |        | PageUp |        |
+ * |  TAB   |        |CMD_LEFT|CMD_RGHT|    $   |    %   |                     |    =   |    _   |        |        | PageUp |   F12  |
  * |--caps--+----a---+----s---+----d---+----f---+----g---|                     |----h---+----j---+----k---+----l---+---;:---+---'"---|
- * |  CAPS  |        |OSM_LST | TP DEL |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right |   -    |        |
- * |--shft--+----z---+----x---+----c---+----v---+----b---|  Ctl   |   | RShift |----n---+----m---+----,<--+----.>--+---/?---+--rsft--|
- * | LShift |        |    ~   |    `   |        |OPT_LEFT|--------|   |--------| PageDn |  Left  |  Down  |  Right |   +    | RShift |
+ * |  CAPS  |        |        | TP DEL |OPT_RGHT|        |--------.   ,--------|  Left  |  Down  |   Up   |  Right | PageDn |        |
+ * |--ctrl--+----z---+----x---+----c---+----v---+----b---|        |   |        |----n---+----m---+----,<--+----.>--+---/?---+--mins--|
+ * |        |        |        |        |        |OPT_LEFT|--------|   |--------|        |        |        |        |        |        |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
- *                        |  LCtl  |  LOpt  |  LCmd  | /        /       \        \ |        |        |        |
+ *                        |        |        |        | /        /       \        \ |        |        |        |
  *                        `--------------------------''--------'         '--------''--------------------------'                        */
 [_LAYER1] = LAYOUT(
 /* ,--esc-------1--------2--------3--------4--------5----.                     ,---6--------7--------8--------9--------0-------home--.
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
-    KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
 /* |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
 /* |--tab---+---q----+---w----+---e----+---r----+---t----|                     |---y----+---u----+---i----+---o----+---p----+---\|---|
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
-    RAYCAST, _______, CMD_LEFT,CMD_RGHT,TD_DLZR, KC_PERC,                       KC_EQL,  KC_UNDS, KC_ASTR, TD_PRNS, KC_PGUP, _______,
+    RAYCAST, _______, CMD_LEFT,CMD_RGHT,_______, _______,                       _______, _______, _______, _______, KC_PGUP, KC_HOME,
 /* |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
 /* |--caps--+---a----+---s----+---d----+---f----+---g----|                     |---h----+---j----+---k----+---l----+---;:---+---'"---|
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        | */
-    _______, _______, OSM_LST, TH_DEL,  OPT_RGHT,_______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_MINS, _______,
+    _______, _______, _______, TH_DEL,  OPT_RGHT,_______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGDN, KC_END,
 /* |        |        |        |        |        |        |--------.   ,--------|        |        |        |        |        |        |
- * |--lsft--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--rsft--| */
-    _______, _______, KC_TILD, KC_GRV,  _______, OPT_LEFT,OSM_CTL,     OSM_RST, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PLUS, _______,
+ * |--ctrl--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--rsft--| */
+    _______, _______, _______, _______, _______, OPT_LEFT,_______,     _______, _______, _______, _______, _______, _______, _______,
 /* |        |        |        |        |        |        |--------|   |--------|        |        |        |        |        |        |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |        |        |        | /        /       \        \ |        |        |        |                        */
-                           _______, _______, _______,   RAYCAST,          _______,  _______, _______, _______
+                           _______, _______, _______,   _______,          KC_LSFT,  KC_BSPC,  _______, _______
 /*                        `--------------------------''--------'         '--------''--------------------------'                        */
 ),
 
 /* Layer2
- * Characters and Media control
  *
  * ,--esc--------1--------2--------3--------4--------5---.                     ,----6--------7--------8--------9-------0-------home--.
  * |        |        |        |        |        |        |                     |        |        |        |        |        |        |
  * |--tab---+----q---+----w---+----e---+----r---+----t---|                     |----y---+----u---+----i---+----o---+---p----+---\|---|
- * |        |        |        |        |        |        |                     |        |        |        |        |        |        |
+ * |        |        |        |        |        |        |                     |    =   |    _   |        |        |        |        |
  * |--caps--+----a---+----s---+----d---+----f---+----g---|                     |----h---+----j---+----k---+----l---+---;:---+---'"---|
  * |        |        |        |        |        |        |--------.   ,--------|        |        |        |        |        |        |
  * |--lsft--+----z---+----x---+----c---+----v---+----b---|        |   |        |----n---+----m---+----,<--+----.>--+---/?---+--rsft--|
- * |        |        |        |        |        |        |--------|   |--------|NextSong|  Play  |VolDown | VolUp  |        |        |
+ * |        |        |    ~   |    `   |        |        |--------|   |--------|        |        |        |        |        |        |
  * `----------------------------------------------------/        /     \        \----------------------------------------------------'
  *                        |        |        |        | /        /       \        \ |        |        |        |
  *                        `--------------------------''--------'         '--------''--------------------------'
 */
 
 [_LAYER2] = LAYOUT(
-// ,---esc------1--------2--------3--------4--------5----.                     ,---6--------7--------8--------9--------0-------home--.
+// ,---esc------1--------2--------3--------4--------5----.                     ,---6--------7--------8--------9--------0--------eql--.
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
-    _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
 // |---tab--+---q----+---w----+---e----+---r----+---t----|                     |---y----+---u----+---i----+---o----+---p----+---|\---|
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
-    _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+    KC_0,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                       KC_EQL,  KC_UNDS, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
 // |--caps--+---a----+---s----+---d----+---f----+---g----|                     |---h----+---j----+---k----+---l----+---;:---+---'"---|
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
-    _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                       _______, KC_MINS, KC_EQL, _______, KC_COLN, KC_DQUO,
 // |        |        |        |        |        |        |--------.   ,--------|        |        |        |        |        |        |
-// |--lsft--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--rsft--|
-    _______, _______, _______, _______, _______, _______, _______,     _______, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU, _______, _______,
+// |--lsft--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--mins--|
+    _______, _______, KC_TILD, KC_GRV,  _______, _______, _______,     _______, _______, _______, KC_LT,   KC_GT,   KC_QUES, _______,
 // |        |        |        |        |        |        |--------|   |--------|        |        |        |        |        |        |
 // `----------------------------------------------------/        /     \        \----------------------------------------------------'
 //                        |        |        |        | /        /       \        \ |        |        |        |
@@ -178,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_NAV] = LAYOUT(
-// ,---esc------1--------2--------3--------4--------5----.                     ,---6--------7--------8--------9--------0-------home--.
+// ,---esc------1--------2--------3--------4--------5----.                     ,---6--------7--------8--------9--------0-------eql---.
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
     _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
@@ -190,8 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |        |        |        |        |        |        |                     |        |        |        |        |        |        |
     _______, _______, _______, _______, _______, _______,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGDN, KC_END,
 // |        |        |        |        |        |        |--------.   ,--------|        |        |        |        |        |        |
-// |--shft--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--rsft--|
-    _______, _______, _______, _______, _______, _______, _______,     _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+// |--crtl--+---z----+---x----+---c----+---v----+---b----|        |   |        |---n----+---m----+---,<---+---.>---+---/?---+--mins--|
+    _______, _______, _______, _______, _______, _______, _______,     _______, KC_MNXT, KC_MPLY, KC_VOLD, KC_VOLU, _______, QK_LLCK,
 // |        |        |        |        |        |        |--------|   |--------|        |        |        |        |        |        |
 // `----------------------------------------------------/        /     \        \----------------------------------------------------'
 //                        |        |        |        | /        /       \        \ |        |        |        |
@@ -200,14 +191,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+#define TAPPING_TERM_HOME_ROW 200
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case OSM_LST:
-            return 1000;
-        case OSM_RST:
-            return 1000;
         case TH_DEL:
             return 500;
+        case LT2_BSP:
+            return 200;
+        case HOME_F:
+            return TAPPING_TERM_HOME_ROW;
+        case HOME_J:
+            return TAPPING_TERM_HOME_ROW;
         default:
             return TAPPING_TERM;
     }
@@ -215,11 +210,21 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT1_BSP:
+        case LT2_BSP:
             // Immediately select the hold action when another key is tapped.
             return true;
         default:
             // Do not select the hold action when another key is tapped.
+            return false;
+    }
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT2_BSP:
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
             return false;
     }
 }
